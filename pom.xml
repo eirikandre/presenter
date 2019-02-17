@@ -10,7 +10,7 @@
     </parent>
     <groupId>no.eidsa.presenter</groupId>
     <artifactId>presenter-impl</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>presenter</name>
 
     <properties>
@@ -41,7 +41,7 @@
     </dependencies>
 
     <build>
-        <finalName>${artifactId}</finalName>
+        <finalName>presenter</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

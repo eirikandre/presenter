@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "presenter")
 public class PresenterProperties {
 
-    private String temp;
-
+    private String temp = "temp";
+    private Boolean cleanTemp = true;
 
 }

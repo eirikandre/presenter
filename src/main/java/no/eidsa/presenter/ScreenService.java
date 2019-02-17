@@ -10,9 +10,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -28,7 +31,6 @@ public class ScreenService {
     }
 
     public String captureScreen() {
-
         BufferedImage image = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 
         String timeMillis = String.valueOf(System.currentTimeMillis());
@@ -36,7 +38,14 @@ public class ScreenService {
         Path path = Paths.get(presenterProperties.getTemp(), timeMillis + ".png");
 
         try {
-            Files.createDirectories(Paths.get(presenterProperties.getTemp()));
+            Path tempFolder = Paths.get(presenterProperties.getTemp());
+
+            if (tempFolder.toFile().exists() && presenterProperties.getCleanTemp()) {
+                FileUtils.cleanDirectory(tempFolder.toFile());
+            } else {
+                Files.createDirectories(tempFolder);
+            }
+
             ImageIO.write(image, "png", path.toFile());
             return timeMillis + ".png";
         } catch (IOException e) {
@@ -48,8 +57,8 @@ public class ScreenService {
     public byte[] getImage(String id) {
         Path path = Paths.get(presenterProperties.getTemp(), id);
 
-        try {
-            return IOUtils.toByteArray(new FileInputStream(path.toFile()));
+        try (InputStream in = new FileInputStream(path.toFile())) {
+            return IOUtils.toByteArray(in);
         } catch (IOException e) {
             throw new RuntimeException("Failed to find file");
         }

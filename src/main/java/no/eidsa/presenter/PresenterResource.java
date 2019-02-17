@@ -25,13 +25,7 @@ public class PresenterResource {
         robot.keyPress(KeyEvent.VK_RIGHT);
         Thread.sleep(10);
         robot.keyRelease(KeyEvent.VK_RIGHT);
-        Thread.sleep(500);
-
-        if (image) {
-            return screenService.captureScreen();
-        } else {
-            return "";
-        }
+        return captureScreen(image);
     }
 
     @GetMapping("/api/prev")
@@ -39,8 +33,13 @@ public class PresenterResource {
         robot.keyPress(KeyEvent.VK_LEFT);
         Thread.sleep(10);
         robot.keyRelease(KeyEvent.VK_LEFT);
+        return captureScreen(image);
+    }
+
+    private String captureScreen(@RequestParam(name = "image", defaultValue = "true") Boolean image) throws InterruptedException {
 
         if (image) {
+            Thread.sleep(400);
             return screenService.captureScreen();
         } else {
             return "";
