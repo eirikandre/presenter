@@ -25,6 +25,6 @@ java -Dserver.port=80 -jar presenter.jar
 |presenter.clean-temp|true|Will only keep the last image in temp folder. Be aware that it will delete ALL FILES in temp folder if this is set to true. Choose a temp folder with care!|
 
 # Screen shot
-![Presenter on phone screen](screen_Capture.PNG?raw=true "Presenter")
+![Presenter on phone screen](https://github.com/eirikandre/presenter/blob/master/screen_capture.PNG?raw=true)
 
 
